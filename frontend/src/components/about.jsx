@@ -17,7 +17,7 @@ function About() {
             </div>
             <h2 className="text-xl font-semibold text-gray-800">Purpose</h2>
             <p className="mt-2 text-gray-600">
-              Our application is designed to help individuals and teams stay organized by managing their tasks effectively.
+              This application is designed to help stay organized by managing their tasks effectively.
             </p>
           </div>
           <div className="flex flex-col items-center text-center">
@@ -26,7 +26,7 @@ function About() {
             </div>
             <h2 className="text-xl font-semibold text-gray-800">Features</h2>
             <p className="mt-2 text-gray-600">
-              Create, edit, and manage tasks with ease. Filter tasks by status, track completion, and much more!
+              Create, edit, and manage tasks with ease. Filter tasks by status, date, and more!
             </p>
           </div>
           <div className="flex flex-col items-center text-center">
@@ -42,20 +42,13 @@ function About() {
             <div className="flex items-center justify-center w-16 h-16 mb-4 text-3xl font-bold text-red-600 bg-red-100 rounded-full">
               🔒
             </div>
-            <h2 className="text-xl font-semibold text-gray-800">Security</h2>
+            <h2 className="text-xl font-semibold text-gray-800">Privacy</h2>
             <p className="mt-2 text-gray-600">
-              Your data is secure with us. We ensure top-notch security and privacy for all your tasks.
+            Your privacy matters to us - no data collected, no worries.
             </p>
           </div>
         </div>
-        <div className="mt-8 text-center">
-          <button
-            className="px-6 py-3 text-white transition duration-200 bg-blue-500 rounded-lg hover:bg-blue-600"
-            onClick={() => window.location.href = "/"}
-          >
-            Get Started Now
-          </button>
-        </div>
+        
       </div>
     </div>
   );

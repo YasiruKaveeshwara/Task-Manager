@@ -9,7 +9,7 @@ const CustomAlert = ({ message, type, onClose }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (onClose) onClose();
-    }, 1500); // Display the alert for 2 seconds
+    }, 1500); // Display the alert for 1.5 seconds
 
     return () => clearTimeout(timer);
   }, [onClose]);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import CustomAlert from "./customAlert";
 function TaskList() {
@@ -10,8 +10,7 @@ function TaskList() {
   const [expandedTask, setExpandedTask] = useState(null);
   const [searchQuery, setSearchQuery] = useState(""); // State for search input
   const [createdAtFilter, setCreatedAtFilter] = useState(""); // State for filtering by created_at
-const [completedAtFilter, setCompletedAtFilter] = useState(""); // State for filtering by completed_at
-
+  const [completedAtFilter, setCompletedAtFilter] = useState(""); // State for filtering by completed_at
 
   // Fetch tasks from the backend
   useEffect(() => {
@@ -76,76 +75,63 @@ const [completedAtFilter, setCompletedAtFilter] = useState(""); // State for fil
   const filteredTasks = tasks.filter((task) => {
     const matchesFilter = filter === "All" ? true : filter === "Completed" ? task.status === "Completed" : task.status === "Not Completed";
     const matchesSearch = task.name.toLowerCase().includes(searchQuery.toLowerCase());
-  
-    const matchesCreatedAt = createdAtFilter
-      ? new Date(task.created_at).toISOString().split("T")[0] === createdAtFilter
-      : true;
-  
+
+    const matchesCreatedAt = createdAtFilter ? new Date(task.created_at).toISOString().split("T")[0] === createdAtFilter : true;
+
     const matchesCompletedAt = completedAtFilter
       ? task.completed_at && new Date(task.completed_at).toISOString().split("T")[0] === completedAtFilter
       : true;
-  
+
     return matchesFilter && matchesSearch && matchesCreatedAt && matchesCompletedAt;
   });
 
   return (
-    <div className='max-w-4xl p-4 mx-auto'>
-      <h1 className='mb-4 text-2xl font-bold'>Task List</h1>
+    <div className='relative max-w-4xl p-4 mx-auto'>
+      <h1 className='items-center mx-auto mb-4 text-3xl font-bold text-center text-blue-600'>Task List</h1>
 
       {/* Filter Dropdown and Search Box */}
-      <div className="flex flex-wrap items-center justify-between mb-4 space-y-2 md:space-y-0">
-  <div>
-    <label htmlFor="filter" className="mr-2 font-semibold text-gray-700">
-      Filter Tasks:
-    </label>
-    <select id="filter" className="p-2 border rounded-md" value={filter} onChange={(e) => setFilter(e.target.value)}>
-      <option value="All">All</option>
-      <option value="Completed">Completed</option>
-      <option value="Not Completed">Not Completed</option>
-    </select>
-  </div>
-  <div>
-    <label htmlFor="search" className="mr-2 font-semibold text-gray-700">
-      Search:
-    </label>
-    <input
-      type="text"
-      id="search"
-      placeholder="Search by task name"
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
-      className="p-2 border rounded-md"
-    />
-  </div>
-  <div>
-    <label htmlFor="createdAtFilter" className="mr-2 font-semibold text-gray-700">
-      Created At:
-    </label>
-    <input
-      type="date"
-      id="createdAtFilter"
-      value={createdAtFilter}
-      onChange={(e) => setCreatedAtFilter(e.target.value)}
-      className="p-2 border rounded-md"
-    />
-  </div>
-  <div>
-    <label htmlFor="completedAtFilter" className="mr-2 font-semibold text-gray-700">
-      Completed At:
-    </label>
-    <input
-      type="date"
-      id="completedAtFilter"
-      value={completedAtFilter}
-      onChange={(e) => setCompletedAtFilter(e.target.value)}
-      className="p-2 border rounded-md"
-    />
-  </div>
-</div>
+      <div className='flex flex-wrap items-center justify-between mb-4 space-y-2 md:space-y-0'>
+        <div>
+          <label htmlFor='filter' className='mr-2 font-semibold text-gray-700'>
+            Filter Tasks:
+          </label>
+          <select id='filter' className='p-2 border rounded-md' value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <option value='All'>All</option>
+            <option value='Completed'>Completed</option>
+            <option value='Not Completed'>Not Completed</option>
+          </select>
+        </div>
 
+        <div>
+          <label htmlFor='createdAtFilter' className='mr-2 font-semibold text-gray-700'>
+            Created At:
+          </label>
+          <input
+            type='date'
+            id='createdAtFilter'
+            value={createdAtFilter}
+            onChange={(e) => setCreatedAtFilter(e.target.value)}
+            className='p-2 border rounded-md'
+          />
+        </div>
+        <div>
+          <label htmlFor='search' className='mr-2 font-semibold text-gray-700'>
+            Search:
+          </label>
+          <input
+            type='text'
+            id='search'
+            placeholder='Search by task name'
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className='p-2 border rounded-md'
+          />
+        </div>
+      </div>
 
       {/* Task List */}
-      {filteredTasks.map((task) => (
+      {filteredTasks.length > 0 ? (
+  filteredTasks.map((task) => (
         <div
           key={task.id}
           className={`p-6 mb-4 border rounded-lg shadow-sm cursor-pointer transition-transform transform ${
@@ -186,7 +172,7 @@ const [completedAtFilter, setCompletedAtFilter] = useState(""); // State for fil
           )}
 
           {/* Task Controls */}
-          <div className='flex items-center justify-between mt-4'>
+          <div className='flex items-center justify-between mt-1'>
             <div className='flex items-center space-x-2'>
               <p>
                 <span className='text-sm font-semibold'>Created At:</span> {new Date(task.created_at).toLocaleString()}
@@ -207,7 +193,18 @@ const [completedAtFilter, setCompletedAtFilter] = useState(""); // State for fil
             </div>
           </div>
         </div>
-      ))}
+        ))
+      ) : (
+        <div className='flex flex-col items-center justify-center p-6 border rounded-lg shadow-md bg-gray-50'>
+          <h2 className='text-xl font-bold text-gray-700'>No Tasks Found</h2>
+          <p className='text-gray-500'>You currently have no tasks. Add one to get started!</p>
+          <Link
+            to='/add-task'
+            className='px-4 py-2 mt-4 text-white transition bg-blue-500 rounded hover:bg-blue-600'>
+            Add Task
+          </Link>
+        </div>
+      )}
 
       {/* Confirmation Modal */}
       {confirmDelete && (
