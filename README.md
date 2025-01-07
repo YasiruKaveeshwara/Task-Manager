@@ -1,7 +1,6 @@
 # 📋 Task Manager
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![React](https://img.shields.io/badge/React-18.x-61DAFB.svg)
 ![Node.js](https://img.shields.io/badge/Node.js-16.x-339933.svg)
 
