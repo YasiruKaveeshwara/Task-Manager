@@ -1,17 +1,25 @@
 import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import TaskList from "./components/taskList";
+import AddTask from "./components/addTask";
+import Header from "./components/header";
 
 function App() {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header />
+      <div className="container p-4 mx-auto ">
+        
+      
+      <Routes>
+        <Route path='/' element={<TaskList />} />
+        <Route path='/add' element={<AddTask />} />
+      </Routes>
+      </div>
+    </Router>
+
+   
   );
 }
 
