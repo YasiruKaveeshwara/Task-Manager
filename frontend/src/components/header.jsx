@@ -5,22 +5,22 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false); // State for mobile menu toggle
 
   return (
-    <header className='text-white bg-blue-600 shadow-lg'>
+    <header className='shadow-md bg-gradient-to-r from-blue-600 to-indigo-600'>
       <div className='container flex items-center justify-between px-4 py-4 mx-auto'>
         {/* Logo */}
-        <div className='text-2xl font-bold'>
+        <div className='text-2xl font-bold text-white'>
           <Link to='/'>Task Manager</Link>
         </div>
 
         {/* Desktop Navigation */}
-        <nav className='hidden space-x-6 md:flex'>
-          <Link to='/' className='transition-colors duration-300 hover:text-gray-200'>
+        <nav className='hidden space-x-8 md:flex'>
+          <Link to='/' className='text-white transition duration-300 hover:text-gray-300'>
             Home
           </Link>
-          <Link to='/add' className='transition-colors duration-300 hover:text-gray-200'>
+          <Link to='/add' className='text-white transition duration-300 hover:text-gray-300'>
             Add Task
           </Link>
-          <Link to='/about' className='transition-colors duration-300 hover:text-gray-200'>
+          <Link to='/about' className='text-white transition duration-300 hover:text-gray-300'>
             About
           </Link>
         </nav>
@@ -36,19 +36,19 @@ const Header = () => {
       {/* Mobile Navigation */}
       {isOpen && (
         <nav className='bg-blue-500 md:hidden'>
-          <ul className='p-4 space-y-2'>
+          <ul className='flex flex-col items-start p-4 space-y-4'>
             <li>
-              <Link to='/' className='block p-2 text-white rounded hover:bg-blue-700' onClick={() => setIsOpen(false)}>
+              <Link to='/' className='block px-4 py-2 text-white rounded-md hover:bg-blue-600' onClick={() => setIsOpen(false)}>
                 Home
               </Link>
             </li>
             <li>
-              <Link to='/add-task' className='block p-2 text-white rounded hover:bg-blue-700' onClick={() => setIsOpen(false)}>
+              <Link to='/add' className='block px-4 py-2 text-white rounded-md hover:bg-blue-600' onClick={() => setIsOpen(false)}>
                 Add Task
               </Link>
             </li>
             <li>
-              <Link to='/about' className='block p-2 text-white rounded hover:bg-blue-700' onClick={() => setIsOpen(false)}>
+              <Link to='/about' className='block px-4 py-2 text-white rounded-md hover:bg-blue-600' onClick={() => setIsOpen(false)}>
                 About
               </Link>
             </li>

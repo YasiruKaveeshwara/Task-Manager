@@ -8,6 +8,22 @@ exports.getTasks = (req, res) => {
   });
 };
 
+exports.getTaskById = (req, res) => {
+  const { id } = req.params;
+
+  Task.getTaskById(id, (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Failed to fetch task" });
+    }
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+    res.json(results[0]);
+  });
+};
+
+
 // Create a new task
 exports.createTask = (req, res) => {
   const { name, description, status } = req.body;
@@ -29,17 +45,25 @@ exports.createTask = (req, res) => {
 // Update a task
 exports.updateTask = (req, res) => {
   const { id } = req.params;
-  const { name, description, status } = req.body;
+  const { name, description, status, completed_at } = req.body;
 
-  if (!name || !description || !status) {
-    return res.status(400).json({ error: "All fields are required" });
+  if (!name || !description) {
+    return res.status(400).json({ error: "Name and description are required" });
   }
 
-  Task.updateTask(id, { name, description, status }, (err) => {
-    if (err) return res.status(500).json({ error: "Failed to update task" });
-    res.sendStatus(200);
-  });
+  Task.updateTask(
+    id,
+    { name, description, status, completed_at },
+    (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Failed to update task" });
+      }
+      res.sendStatus(200);
+    }
+  );
 };
+
 
 // Delete a task
 exports.deleteTask = (req, res) => {
@@ -50,3 +74,22 @@ exports.deleteTask = (req, res) => {
     res.sendStatus(200);
   });
 };
+
+exports.updateTaskStatus = (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!status) {
+    return res.status(400).json({ error: "Status is required" });
+  }
+
+  Task.updateTaskStatus(id, status, (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error updating task status");
+    } else {
+      res.sendStatus(200);
+    }
+  });
+};
+
